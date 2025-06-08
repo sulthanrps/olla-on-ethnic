@@ -51,7 +51,7 @@ export default function TransactionPage() {
     // Kolom ini disesuaikan dengan output dari query JOIN di backend
     const columns = [
         { field: 'id_transaction', headerName: 'ID', width: 50 },
-        { field: 'tanggal', headerName: 'Tanggal', width: 120, 
+        { field: 'tanggal', headerName: 'Tanggal', width: 100, 
           renderCell: (params) => new Date(params.value).toLocaleDateString('id-ID')
         },
         { field: 'nama_customer', headerName: 'Customer', width: 150 },
@@ -60,8 +60,8 @@ export default function TransactionPage() {
         { field: 'total_harga', headerName: 'Total Harga', width: 130,
           renderCell: (params) => `Rp ${Number(params.value).toLocaleString('id-ID')}`
         },
-        { field: 'jenis_transaksi', headerName: 'Pembayaran', width: 120 },
-        { field: 'nama_kasir', headerName: 'Kasir', width: 150 }
+        { field: 'jenis_transaksi', headerName: 'Pembayaran', width: 100 },
+        { field: 'nama_kasir', headerName: 'Kasir', width: 100 }
         // {
         //     field: 'actions',
         //     headerName: 'Aksi',
