@@ -26,6 +26,7 @@ const useProducts = () => {
     setError(null);
     try {
       const response = await axiosInstance.get(`/products/${id}`);
+      console.log(response.data.data, "<< dari use product");
       setProduct(response.data.data);
       return response.data.data;
     } catch (err) {
