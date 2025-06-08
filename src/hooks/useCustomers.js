@@ -30,8 +30,8 @@ const useCustomer = () => {
     setError(null);
     try {
       const response = await axiosInstance.get(`/customers/${id}`);
-      setCustomer(response.data);
-      return response.data; // Mengembalikan data untuk penggunaan langsung
+      setCustomer(response.data.data);
+      return response.data.data; // Mengembalikan data untuk penggunaan langsung
     } catch (err) {
       setError(err);
       toast.error(`Gagal menemukan customer dengan ID: ${id}.`);
@@ -46,8 +46,6 @@ const useCustomer = () => {
     setError(null);
     try {
       await axiosInstance.post('/customers', customerData);
-      // Menambahkan customer baru ke state tanpa perlu re-fetch semua data
-      // setCustomers((prev) => [...prev, response.data]);
       toast.success('Customer berhasil ditambahkan!');
       await fetchCustomers();
     } catch (err) {
@@ -64,10 +62,6 @@ const useCustomer = () => {
     setError(null);
     try {
       await axiosInstance.put(`/customers/${id}`, customerData);
-      // Memperbarui state customers dengan data yang baru
-      // setCustomers((prev) => 
-      //   prev.map((cust) => (cust.id_customer === id ? response.data.data : cust))
-      // );
       toast.success('Customer berhasil diperbarui!');
       await fetchCustomers(); // Re-fetch untuk memastikan data terbaru
     } catch (err) {
@@ -84,8 +78,6 @@ const useCustomer = () => {
     setError(null);
     try {
       await axiosInstance.delete(`/customers/${id}`);
-      // Menghapus customer dari state
-      // setCustomers((prev) => prev.filter((cust) => cust.id_customer !== id));
       toast.success('Customer berhasil dihapus!');
       fetchCustomers(); // Re-fetch untuk memastikan data terbaru
     } catch (err) {
