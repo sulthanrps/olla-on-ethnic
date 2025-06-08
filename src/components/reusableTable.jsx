@@ -4,8 +4,6 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 
 export default function ReusableTable({ columns, rows = [], isLoading, error, onAdd, addLabel = "Tambah Data" }) {
-
-    // Menangani state loading
     if (isLoading) {
         return (
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400 }}>
@@ -14,7 +12,6 @@ export default function ReusableTable({ columns, rows = [], isLoading, error, on
         );
     }
 
-    // Menangani state error
     if (error) {
         return (
             <Alert severity="error" sx={{ mt: 2 }}>
@@ -32,12 +29,12 @@ export default function ReusableTable({ columns, rows = [], isLoading, error, on
                         startIcon={<AddIcon />}
                         onClick={onAdd}
                         sx={{
-                            backgroundColor: '#000000', // Ganti warna latar belakang (biru)
-                            color: 'white',             // Ganti warna teks
-                            fontWeight: 'bold',         // Buat teks menjadi tebal
-                            borderRadius: '8px',        // Buat sudut lebih melengkung
-                            padding: '10px 20px',       // Atur padding
-                            textTransform: 'none',      // Hapus kapitalisasi otomatis
+                            backgroundColor: '#000000', 
+                            color: 'white',             
+                            fontWeight: 'bold',         
+                            borderRadius: '8px',       
+                            padding: '10px 20px',      
+                            textTransform: 'none',      
                             '&:hover': {
                                 backgroundColor: '#222222',
                             },
@@ -51,8 +48,6 @@ export default function ReusableTable({ columns, rows = [], isLoading, error, on
                 rows={rows}
                 columns={columns}
                 loading={isLoading}
-                // Pastikan data Anda memiliki properti 'id'. Jika tidak, gunakan getRowId.
-                // Contoh: getRowId={(row) => row._id}
                 getRowId={(row) => row.id_customer || row.id_product || row.id_kasir || row.id_transaction || row.id}
                 initialState={{
                     pagination: {
@@ -60,16 +55,14 @@ export default function ReusableTable({ columns, rows = [], isLoading, error, on
                     },
                 }}
                 pageSizeOptions={[5, 10, 25]}
-                slots={{ toolbar: GridToolbar }} // Aktifkan toolbar untuk filter, export, dll.
+                slots={{ toolbar: GridToolbar }}
                 slotProps={{
                     toolbar: {
                         showQuickFilter: true,
                     },
                 }}
-                // checkboxSelection
                 disableRowSelectionOnClick
                 sx={{
-                    // Styling agar terlihat lebih modern
                     border: 0,
                     '& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within': {
                         outline: 'none !important',

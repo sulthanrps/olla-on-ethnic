@@ -1,37 +1,30 @@
 import { useEffect, useState } from "react";
-import Container from "../components/container"; // Asumsi komponen ini ada
-import useTransaction from "../hooks/useTransactions"; // Hook untuk transaksi
-import ReusableTable from "../components/reusableTable"; // Komponen tabel
-import Modal from "../components/modal"; // Komponen Modal
-import TransactionForm from "../forms/transactionForm"; // Form yang baru saja kita buat
+import Container from "../components/container"; 
+import useTransaction from "../hooks/useTransactions"; 
+import ReusableTable from "../components/reusableTable"; 
+import Modal from "../components/modal"; 
+import TransactionForm from "../forms/transactionForm"; 
 
 import { Toaster } from "react-hot-toast";
 import { Box, IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-// Tidak ada EditIcon karena transaksi tidak diedit
 
 export default function TransactionPage() {
-    // 1. Memanggil custom hook untuk transaksi
     const {
         transactions,
         loading,
         error,
         fetchTransactions,
         createTransaction,
-        // deleteTransaction, // Pastikan ada fungsi delete di hook Anda
     } = useTransaction();
 
-    // 2. State untuk manajemen Modal (hanya untuk membuka dan menutup)
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // 3. Handler untuk membuka modal tambah
     const handleOpenAddModal = () => {
         setIsModalOpen(true);
     };
 
-    // 4. Handler untuk menghapus data
     // const handleDelete = (id) => {
-    //     // Asumsi hook deleteTransaction sudah ada
     //     if (window.confirm("Apakah Anda yakin ingin menghapus transaksi ini? Ini tidak akan mengembalikan stok produk.")) {
     //         if (deleteTransaction) {
     //             deleteTransaction(id);
@@ -41,14 +34,11 @@ export default function TransactionPage() {
     //     }
     // };
 
-    // 5. Handler untuk menyimpan data (hanya untuk menambah)
     const handleSave = async (formData) => {
         await createTransaction(formData);
-        setIsModalOpen(false); // Tutup modal setelah operasi selesai
+        setIsModalOpen(false); 
     };
 
-    // 6. Definisi kolom untuk ReusableTable
-    // Kolom ini disesuaikan dengan output dari query JOIN di backend
     const columns = [
         { field: 'id_transaction', headerName: 'ID', width: 50 },
         { field: 'tanggal', headerName: 'Tanggal', width: 100, 
@@ -80,12 +70,10 @@ export default function TransactionPage() {
         // },
     ];
 
-    // 7. Memuat data transaksi saat komponen pertama kali di-render
     useEffect(() => {
         fetchTransactions();
     }, [fetchTransactions]);
 
-    // 8. Tampilan Loading dan Error
     if (loading && transactions.length === 0) {
         return <Container><div>Memuat data transaksi... ⏳</div></Container>;
     }
@@ -105,7 +93,6 @@ export default function TransactionPage() {
                 error={error}
                 onAdd={handleOpenAddModal}
                 addLabel="Buat Transaksi Baru"
-                // Menggunakan id_transaction untuk getRowId jika tabel membutuhkannya
                 getRowId={(row) => row.id_transaction}
             />
 
@@ -114,9 +101,6 @@ export default function TransactionPage() {
                 onClose={() => setIsModalOpen(false)}
                 title="Buat Transaksi Baru"
             >
-                {/* Komponen TransactionForm tidak memerlukan prop 'transaction' 
-                  karena kita tidak melakukan edit
-                */}
                 <TransactionForm
                     onSave={handleSave}
                     onCancel={() => setIsModalOpen(false)}
