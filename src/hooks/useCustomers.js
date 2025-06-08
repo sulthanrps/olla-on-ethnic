@@ -14,7 +14,7 @@ const useCustomer = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axiosInstance.get('/customers');
+      const response = await axiosInstance.get('/customers'); // '/' di customers.route = '/customers' dihook useCustomer
       setCustomers(response.data.data);
     } catch (err) {
       setError(err);

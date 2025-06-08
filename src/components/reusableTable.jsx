@@ -53,7 +53,7 @@ export default function ReusableTable({ columns, rows = [], isLoading, error, on
                 loading={isLoading}
                 // Pastikan data Anda memiliki properti 'id'. Jika tidak, gunakan getRowId.
                 // Contoh: getRowId={(row) => row._id}
-                getRowId={(row) => row.id_customer || row.id_product || row.id_kasir || row.id}
+                getRowId={(row) => row.id_customer || row.id_product || row.id_kasir || row.id_transaction || row.id}
                 initialState={{
                     pagination: {
                         paginationModel: { page: 0, pageSize: 10 },
