@@ -16,7 +16,7 @@ const TransactionForm = ({ transaction, onSave, onCancel }) => {
     const [formData, setFormData] = useState(initialState);
 
     const { customers, fetchCustomers } = useCustomer();
-    const { products, fetchProduct } = useProduct();
+    const { products, product, fetchProduct, getProductById } = useProduct();
     const { staff, fetchStaff } = useStaff();
 
     useEffect(() => {
@@ -24,6 +24,10 @@ const TransactionForm = ({ transaction, onSave, onCancel }) => {
         fetchProduct();
         fetchStaff();
     }, []); 
+
+    useEffect(() => {
+        getProductById(formData.id_product)
+    }, formData)
 
     // useEffect(() => {
     //     if (transaction) {
@@ -44,6 +48,7 @@ const TransactionForm = ({ transaction, onSave, onCancel }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
+        console.log(product.stok)
     };
 
     const handleSubmit = (e) => {

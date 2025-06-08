@@ -1,4 +1,4 @@
-const imageUrl = "../../public/auth-picture.png";
+const imageUrl = "./auth-picture.png";
 
 const AuthLayout = ({ children, title, subtitle }) => {
     return (
@@ -17,7 +17,7 @@ const AuthLayout = ({ children, title, subtitle }) => {
 
             <div className="hidden lg:block relative flex-1">
                 <img
-                    className="absolute inset-0 h-full w-full object-cover"
+                    className="absolute inset-0 h-[100%] w-full object-cover"
                     src={imageUrl}
                     alt="Fashion display"
                 />

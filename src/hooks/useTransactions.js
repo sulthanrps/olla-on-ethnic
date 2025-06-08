@@ -42,11 +42,13 @@ const useTransaction = () => {
     setError(null);
     try {
       await axiosInstance.post('/transactions', transactionData);
-      toast.success('staff berhasil ditambahkan!');
+      toast.success('Transaksi berhasil ditambahkan!');
       await fetchTransactions();
     } catch (err) {
-      setError(err);
-      toast.error('Gagal menambahkan transaksi.');
+      const errorMessage = err.response?.data?.message || 'Gagal menambahkan transaksi';
+      // setError(errorMessage);
+      toast.error(errorMessage);
+      // setLoading(false)
     } finally {
       setLoading(false);
     }
