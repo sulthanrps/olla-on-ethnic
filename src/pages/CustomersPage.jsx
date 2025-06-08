@@ -51,7 +51,6 @@ export default function CustomersPage() {
     // 6. Handler untuk menyimpan data (baik add maupun edit)
     const handleSave = async (formData) => {
         if (modalMode === "add") {
-            console.log(formData);
             await createCustomer(formData);
         } else {
             await updateCustomer(selectedCustomer.id_customer, formData);
