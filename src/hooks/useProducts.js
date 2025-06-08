@@ -1,15 +1,12 @@
-// src/hooks/useCustomer.js
 import { useState, useCallback } from 'react';
 import axiosInstance from '../api/axiosInstance';
-import { toast } from 'react-hot-toast'; // Opsional: untuk notifikasi
+import { toast } from 'react-hot-toast'; 
 
 const useProducts = () => {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  // READ: Mengambil semua customer
   const fetchProduct = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -24,14 +21,13 @@ const useProducts = () => {
     }
   }, []);
 
-  // READ: Mengambil satu product by ID
   const getProductById = useCallback(async (id) => {
     setLoading(true);
     setError(null);
     try {
       const response = await axiosInstance.get(`/products/${id}`);
       setProduct(response.data.data);
-      return response.data.data; // Mengembalikan data untuk penggunaan langsung
+      return response.data.data;
     } catch (err) {
       setError(err);
       toast.error(`Gagal menemukan product dengan ID: ${id}.`);
@@ -40,7 +36,6 @@ const useProducts = () => {
     }
   }, []);
 
-  // CREATE: Menambahkan customer baru
   const addProduct = useCallback(async (productData) => {
     setLoading(true);
     setError(null);
@@ -56,14 +51,13 @@ const useProducts = () => {
     }
   }, [fetchProduct]);
 
-  // UPDATE: Memperbarui data customer
   const updateProduct = useCallback(async (id, productData) => {
     setLoading(true);
     setError(null);
     try {
       await axiosInstance.put(`/products/${id}`, productData);
       toast.success('Product berhasil diperbarui!');
-      await fetchProduct(); // Re-fetch untuk memastikan data terbaru
+      await fetchProduct();
     } catch (err) {
       setError(err);
       toast.error('Gagal memperbarui product.');
@@ -72,14 +66,13 @@ const useProducts = () => {
     }
   }, [fetchProduct]);
 
-  // DELETE: Menghapus customer
   const deleteProduct = useCallback(async (id) => {
     setLoading(true);
     setError(null);
     try {
       await axiosInstance.delete(`/products/${id}`);
       toast.success('Products berhasil dihapus!');
-      fetchProduct(); // Re-fetch untuk memastikan data terbaru
+      fetchProduct();
     } catch (err) {
       setError(err);
       toast.error('Gagal menghapus product.');

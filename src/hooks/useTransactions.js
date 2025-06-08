@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import axiosInstance from '../api/axiosInstance';
-import { toast } from 'react-hot-toast'; // Opsional: untuk notifikasi
+import { toast } from 'react-hot-toast';
 
 const useTransaction = () => {
   const [transactions, setTransactions] = useState([]);
@@ -8,7 +8,6 @@ const useTransaction = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // READ: Mengambil semua staff
   const fetchTransactions = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -23,14 +22,13 @@ const useTransaction = () => {
     }
   }, []);
 
-  // READ: Mengambil satu transaction by ID
   const getTransactionById = useCallback(async (id) => {
     setLoading(true);
     setError(null);
     try {
       const response = await axiosInstance.get(`/transactions/${id}`);
       setTransaction(response.data.data);
-      return response.data.data; // Mengembalikan data untuk penggunaan langsung
+      return response.data.data;
     } catch (err) {
       setError(err);
       toast.error(`Gagal menemukan transaction dengan ID: ${id}.`);
@@ -39,7 +37,6 @@ const useTransaction = () => {
     }
   }, []);
 
-  // CREATE: Menambahkan transaction baru
   const createTransaction = useCallback(async (transactionData) => {
     setLoading(true);
     setError(null);

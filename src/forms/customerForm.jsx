@@ -1,8 +1,6 @@
-// src/components/CustomerForm.jsx
 import { useState, useEffect } from 'react';
 
 const CustomerForm = ({ customer, onSave, onCancel }) => {
-  // State awal yang bersih untuk form
   const initialState = {
     nama: '',
     jenis_kelamin: 'L',
@@ -11,23 +9,19 @@ const CustomerForm = ({ customer, onSave, onCancel }) => {
   };
 
   const [formData, setFormData] = useState(initialState);
-
-  // useEffect ini sekarang menangani mode 'add' dan 'edit' dengan benar
   useEffect(() => {
-    // Jika ada `customer` yang di-pass sebagai prop, kita masuk ke mode EDIT
     if (customer) {
       setFormData({
         nama: customer.nama || '',
-        jenis_kelamin: customer.jenis_kelamin || 'L', // Pastikan default jika data null
+        jenis_kelamin: customer.jenis_kelamin || 'L',
         no_telp: customer.no_telp || '',
         alamat: customer.alamat || '',
       });
     } 
-    // Jika tidak ada `customer`, kita masuk ke mode ADD. Reset form ke kondisi awal.
     else {
       setFormData(initialState);
     }
-  }, [customer]); // Efek ini akan berjalan setiap kali `customer` berubah
+  }, [customer]); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +35,6 @@ const CustomerForm = ({ customer, onSave, onCancel }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* ... field untuk nama, jenis kelamin, no_telp, dan alamat (tidak ada perubahan di sini) ... */}
       <div className="mb-4">
         <label htmlFor="nama" className="block text-sm font-medium text-gray-700 mb-1">Nama Customer</label>
         <input type="text" id="nama" name="nama" value={formData.nama} onChange={handleChange} required
